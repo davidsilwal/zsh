@@ -20,7 +20,11 @@ elif command -v batcat >/dev/null 2>&1; then
 fi
 
 # ---------- GPG ----------
-export GPG_TTY=$(tty)
+# Only set when a terminal is attached; `tty` prints the literal string
+# "not a tty" otherwise, which breaks gpg-agent in scripts and cron.
+if [[ -t 0 ]]; then
+    export GPG_TTY=$(tty)
+fi
 
 # ---------- Starship ----------
 export STARSHIP_CONFIG="$ZDOTDIR/starship.toml"

@@ -32,3 +32,9 @@ export STARSHIP_CONFIG="$ZDOTDIR/starship.toml"
 # ---------- PATH ----------
 # Personal binaries/scripts
 export PATH="$HOME/.local/bin:$PATH"
+
+# Rust toolchain (rustup). Guarded, because not every machine has cargo and
+# an unguarded `.` would error on every shell start.
+if [[ -r "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
